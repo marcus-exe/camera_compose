@@ -67,7 +67,7 @@ dependencies {
     implementation(libs.androidx.camera.camera.view)
     implementation(libs.androidx.camera.camera.mlkit.vision)
     implementation(libs.androidx.camera.camera.extensions)
-
+    implementation(libs.androidx.lifecycle.lifecycle.viewmodel.compose)
 
 
     testImplementation(libs.junit)
