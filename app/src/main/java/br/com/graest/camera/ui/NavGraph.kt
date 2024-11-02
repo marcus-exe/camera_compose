@@ -13,6 +13,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import br.com.graest.camera.ui.screens.CameraComposable
+import br.com.graest.camera.ui.screens.ListImageCloudComposable
 import br.com.graest.camera.ui.screens.ListImageLocalComposable
 
 @Composable
@@ -37,7 +38,11 @@ fun NavGraph(
             ListImageLocalComposable(bitmaps)
         }
         composable("Remote Images") {
-
+            val imageUrls :List<String> = listOf(
+                "https://i.pinimg.com/originals/2d/f6/db/2df6dbe8ff3e019bc25c43617ba5150d.jpg",
+                "https://wallpapercave.com/wp/wp7313876.jpg"
+            )
+            ListImageCloudComposable(imageUrls = imageUrls)
         }
     }
 }

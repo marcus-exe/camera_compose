@@ -70,7 +70,8 @@ dependencies {
     implementation(libs.androidx.lifecycle.lifecycle.viewmodel.compose)
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.navigation.compose)
-
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
 
 
     testImplementation(libs.junit)
