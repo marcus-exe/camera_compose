@@ -1,4 +1,4 @@
-package br.com.graest.camera
+package br.com.graest.camera.ui
 
 import android.graphics.Bitmap
 import androidx.lifecycle.ViewModel

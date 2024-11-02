@@ -68,6 +68,9 @@ dependencies {
     implementation(libs.androidx.camera.camera.mlkit.vision)
     implementation(libs.androidx.camera.camera.extensions)
     implementation(libs.androidx.lifecycle.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.navigation.runtime.ktx)
+    implementation(libs.androidx.navigation.compose)
+
 
 
     testImplementation(libs.junit)
