@@ -27,7 +27,6 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopAppBarComposable(
-    navController: NavController,
     scope: CoroutineScope,
     drawerState: DrawerState,
 ){

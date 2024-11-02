@@ -64,18 +64,19 @@ class MainActivity : ComponentActivity() {
                 val navController: NavHostController = rememberNavController()
 
                 MainScreen(
-                    scaffoldState = scaffoldState,
-                    bitmaps = bitmaps,
-                    controller = controller,
                     scope = scope,
-                    viewModel = viewModel,
-                    applicationContext = this.applicationContext,
                     selectedItemIndex = selectedItemIndex,
                     onSelectedItemChange = ::onSelectedItemChange,
                     drawerState = drawerState,
                     navController = navController
                 ) {
-                    NavGraph(controller = controller)
+                    NavGraph(
+                        navController = navController,
+                        controller = controller,
+                        applicationContext = applicationContext,
+                        viewModel = viewModel,
+                        bitmaps = bitmaps
+                    )
                 }
             }
         }
