@@ -7,9 +7,13 @@ import androidx.camera.view.LifecycleCameraController
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PhotoCamera
@@ -29,6 +33,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import br.com.graest.camera.R
 import br.com.graest.camera.ui.MainViewModel
+import br.com.graest.camera.ui.screens.components.CameraPreview
 import br.com.graest.camera.utils.CameraUtils.takePhoto
 
 @Composable
@@ -63,20 +68,29 @@ fun CameraComposable(
 
         MainCameraComposable(controller = cameraController)
 
-        IconButton(
-            onClick = {
-                takePhoto(
-                    applicationContext = applicationContext,
-                    controller = cameraController,
-                    onPhotoTaken = viewModel::onTakePhoto
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.Bottom,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ){  
+            Spacer(modifier = Modifier.weight(1f))
+            IconButton(
+                onClick = {
+                    takePhoto(
+                        applicationContext = applicationContext,
+                        controller = cameraController,
+                        onPhotoTaken = viewModel::onTakePhoto
+                    )
+                }
+            ) {
+                Icon(
+                    imageVector = Icons.Default.PhotoCamera,
+                    contentDescription = "Take Photo",
+                    tint = Color.White
                 )
             }
-        ) {
-            Icon(
-                imageVector = Icons.Default.PhotoCamera,
-                contentDescription = "Take Photo"
-            )
         }
+
     }
 }
 

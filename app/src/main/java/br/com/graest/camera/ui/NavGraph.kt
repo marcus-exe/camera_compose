@@ -2,12 +2,11 @@ package br.com.graest.camera.ui
 
 import android.content.Context
 import android.graphics.Bitmap
-import androidx.navigation.NavController
-import androidx.navigation.NavHostController
-import androidx.camera.view.CameraController
 import androidx.camera.view.LifecycleCameraController
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -35,14 +34,25 @@ fun NavGraph(
             )
         }
         composable("Local Images") {
-            ListImageLocalComposable(bitmaps)
+            ListImageLocalComposable(
+                bitmaps,
+                viewModel
+            ) { navController.navigate("Local Image Details") }
         }
         composable("Remote Images") {
             val imageUrls :List<String> = listOf(
                 "https://i.pinimg.com/originals/2d/f6/db/2df6dbe8ff3e019bc25c43617ba5150d.jpg",
-                "https://wallpapercave.com/wp/wp7313876.jpg"
+                "https://wallpapercave.com/wp/wp7313876.jpg",
+                "https://www.wideopenspaces.com/wp-content/uploads/sites/6/2022/06/orange-cat-breeds-1.png",
+                "https://cdn.powerofpositivity.com/wp-content/uploads/2020/11/Science-Explains-Why-Orange-Cats-Are-The-Most-Special-1600x900.jpg"
             )
             ListImageCloudComposable(imageUrls = imageUrls)
+        }
+        composable("Local Image Details") {
+
+        }
+        composable("Remote Image Details") {
+
         }
     }
 }

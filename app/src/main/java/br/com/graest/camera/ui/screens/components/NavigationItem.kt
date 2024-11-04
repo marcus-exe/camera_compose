@@ -1,4 +1,4 @@
-package br.com.graest.camera.ui.screens
+package br.com.graest.camera.ui.screens.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CameraAlt

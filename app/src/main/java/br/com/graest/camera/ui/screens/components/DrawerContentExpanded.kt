@@ -1,4 +1,4 @@
-package br.com.graest.camera.ui.screens
+package br.com.graest.camera.ui.screens.components
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height

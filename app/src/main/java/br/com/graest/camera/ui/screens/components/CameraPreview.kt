@@ -1,4 +1,4 @@
-package br.com.graest.camera.ui.screens
+package br.com.graest.camera.ui.screens.components
 
 import androidx.camera.view.LifecycleCameraController
 import androidx.camera.view.PreviewView
