@@ -1,21 +1,59 @@
 package br.com.graest.camera.ui
 
 import android.graphics.Bitmap
-import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
+import br.com.graest.camera.BaseApplication
+import br.com.graest.camera.data.AppRepository
+import br.com.graest.camera.network.ApiStatus
+import br.com.graest.retinografo.base.arch.CoreViewModel
+import kotlinx.coroutines.launch
+import retrofit2.HttpException
+import java.io.IOException
 
-class MainViewModel: ViewModel() {
-    private val _bitmaps = MutableStateFlow<List<Bitmap>>(emptyList())
-    val bitmaps = _bitmaps.asStateFlow()
+class MainViewModel(
+    private val appRepository: AppRepository
+): CoreViewModel<MainUIState, MainEffect>(MainUIState()) {
 
-    private val _bitmap = MutableStateFlow<Bitmap?>(null)
-    val bitmap = _bitmap.asStateFlow()
+    init {
+        getInfo()
+    }
+
+    fun onEvent(event: MainEvent) : Unit {
+        when (event) {
+            is MainEvent.SetBitmapIndex -> setState { it.copy(bitmapIndex = event.index) }
+            is MainEvent.SetAmphibian -> setState { it.copy(amphibian = event.amphibian) }
+        }
+    }
 
     fun onTakePhoto(bitmap: Bitmap) {
-        _bitmaps.value += bitmap
+        setState { it.copy(
+            bitmaps = it.bitmaps?.plus(bitmap)
+        ) }
     }
-    fun setBitmap(bitmap: Bitmap) {
-        _bitmap.value = bitmap
+
+    private fun getInfo() {
+        viewModelScope.launch {
+            val apiRequest = try {
+                ApiStatus.Success(appRepository.getAmphibians())
+            } catch (e: IOException) {
+                ApiStatus.Error
+            } catch (e: HttpException) {
+                ApiStatus.Error
+            }
+        }
+    }
+
+    companion object {
+        val Factory: ViewModelProvider.Factory = viewModelFactory {
+            initializer {
+                val application = (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY]
+                        as BaseApplication)
+                val appRepository = application.container.appRepository
+                MainViewModel(appRepository = appRepository)
+            }
+        }
     }
 }

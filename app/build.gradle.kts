@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.0"
 }
 
 android {
@@ -72,6 +73,9 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
+    implementation(libs.com.jakewharton.retrofit)
+    implementation(libs.com.squareup.retrofit2)
+    implementation(libs.kotlinx.serialization.json)
 
 
     testImplementation(libs.junit)

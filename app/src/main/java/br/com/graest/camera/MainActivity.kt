@@ -40,17 +40,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             CameraTheme {
                 val scope = rememberCoroutineScope()
-                val scaffoldState = rememberBottomSheetScaffoldState()
-                val controller = remember {
-                    LifecycleCameraController(applicationContext).apply {
-                        setEnabledUseCases(
-                            CameraController.IMAGE_CAPTURE or
-                                    CameraController.VIDEO_CAPTURE
-                        )
-                    }
-                }
                 val viewModel = viewModel<MainViewModel>()
-                val bitmaps by viewModel.bitmaps.collectAsState()
+                val state by viewModel.state.collectAsState()
 
                 var selectedItemIndex by rememberSaveable {
                     mutableIntStateOf(0)
@@ -72,10 +63,9 @@ class MainActivity : ComponentActivity() {
                 ) {
                     NavGraph(
                         navController = navController,
-                        controller = controller,
                         applicationContext = applicationContext,
                         viewModel = viewModel,
-                        bitmaps = bitmaps
+                        state = state
                     )
                 }
             }

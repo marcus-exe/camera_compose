@@ -37,6 +37,7 @@ object CameraUtils {
                     )
 
                     onPhotoTaken(rotatedBitmap)
+                    Log.d("Image", "Foto Tirada")
                 }
 
                 override fun onError(exception: ImageCaptureException) {

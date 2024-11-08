@@ -15,6 +15,9 @@ navigationRuntimeKtx = "2.8.3"
 navigationCompose = "2.8.3"
 coilCompose = "3.0.0-rc02"
 coilNetwork = "3.0.0-rc02"
+retrofitSerialization = "1.0.0"
+retrofit2_version = "2.9.0"
+kotlin_serialization = "1.5.1"
 
 
 [libraries]
@@ -45,7 +48,9 @@ androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navig
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coilCompose"}
 coil-network-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coilNetwork"}
-
+com-jakewharton-retrofit = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "retrofitSerialization"}
+com-squareup-retrofit2 = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit2_version" }
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlin_serialization"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

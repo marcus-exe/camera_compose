@@ -1,6 +1,7 @@
 package br.com.graest.camera.ui.screens
 
 import android.graphics.Bitmap
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -15,9 +16,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import br.com.graest.camera.ui.MainUIState
 
 @Composable
-fun LocalImageDetailComposable(bitmap: Bitmap) {
+fun LocalImageDetailComposable(state: MainUIState) {
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -27,12 +29,15 @@ fun LocalImageDetailComposable(bitmap: Bitmap) {
                 .clip(RoundedCornerShape(8.dp))
                 .background(MaterialTheme.colorScheme.surface)
         ) {
-            Image(
-                bitmap = bitmap.asImageBitmap(),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxSize()
-            )
+            if (state.bitmaps != null && state.bitmapIndex != null){
+                Log.d("Index", "Current State Index: ${state.bitmapIndex}")
+                Image(
+                    bitmap = state.bitmaps[state.bitmapIndex].asImageBitmap(),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
         }
 
     }
