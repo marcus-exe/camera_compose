@@ -38,12 +38,19 @@ class MainViewModel(
 
     fun getInfo() {
         viewModelScope.launch {
-            val apiRequest = try {
-                ApiStatus.Success(appRepository.getAmphibians())
+            try {
+                val amphibians = appRepository.getAmphibians()
+                setState {
+                    it.copy(apiStatus = ApiStatus.Success(amphibians))
+                }
             } catch (e: IOException) {
-                ApiStatus.Error
+                setState {
+                    it.copy(apiStatus = ApiStatus.Error)
+                }
             } catch (e: HttpException) {
-                ApiStatus.Error
+                setState {
+                    it.copy(apiStatus = ApiStatus.Error)
+                }
             }
         }
     }

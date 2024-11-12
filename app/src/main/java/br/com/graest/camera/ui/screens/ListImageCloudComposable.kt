@@ -1,8 +1,10 @@
 package br.com.graest.camera.ui.screens
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -56,11 +58,7 @@ fun ListImageCloudComposable(
                     AsyncImageComposable(
                         amphibian = amphibian,
                         modifier = Modifier
-                            .padding(
-                                start = dimensionResource(R.dimen.padding_medium),
-                                top = dimensionResource(R.dimen.padding_medium),
-                                end = dimensionResource(R.dimen.padding_medium)
-                            )
+                            .fillMaxSize()
                             .clickable {
                                 onEvent(MainEvent.SetAmphibian(amphibian))
                                 onEvent(MainEvent.GoToCloudImageDetail)
