@@ -1,5 +1,6 @@
 package br.com.graest.camera.ui.screens
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -27,11 +28,7 @@ fun CloudImageDetailComposable(
                 AsyncImageComposable(
                     amphibian = state.amphibian,
                     modifier = modifier
-                        .padding(
-                            start = dimensionResource(R.dimen.padding_medium),
-                            top = dimensionResource(R.dimen.padding_medium),
-                            end = dimensionResource(R.dimen.padding_medium)
-                        )
+                        .fillMaxWidth()
                 )
             }
         else -> ErrorScreen(retryAction, modifier)
