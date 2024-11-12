@@ -24,7 +24,9 @@ class MainViewModel(
     fun onEvent(event: MainEvent) : Unit {
         when (event) {
             is MainEvent.SetBitmapIndex -> setState { it.copy(bitmapIndex = event.index) }
+            is MainEvent.GoToLocalImageDetail -> sendEffect(MainEffect.GoToLocalImageDetails)
             is MainEvent.SetAmphibian -> setState { it.copy(amphibian = event.amphibian) }
+            is MainEvent.GoToCloudImageDetail -> sendEffect(MainEffect.GoToCloudImageDetails)
         }
     }
 
@@ -34,7 +36,7 @@ class MainViewModel(
         ) }
     }
 
-    private fun getInfo() {
+    fun getInfo() {
         viewModelScope.launch {
             val apiRequest = try {
                 ApiStatus.Success(appRepository.getAmphibians())

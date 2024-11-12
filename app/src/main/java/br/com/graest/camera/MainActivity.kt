@@ -40,7 +40,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             CameraTheme {
                 val scope = rememberCoroutineScope()
-                val viewModel = viewModel<MainViewModel>()
+                val viewModel : MainViewModel = viewModel(factory = MainViewModel.Factory)
                 val state by viewModel.state.collectAsState()
 
                 var selectedItemIndex by rememberSaveable {

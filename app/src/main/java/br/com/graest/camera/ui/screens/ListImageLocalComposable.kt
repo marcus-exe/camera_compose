@@ -14,21 +14,33 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import br.com.graest.camera.ui.MainEffect
 import br.com.graest.camera.ui.MainEvent
 import br.com.graest.camera.ui.MainUIState
 import br.com.graest.camera.ui.MainViewModel
+import kotlinx.coroutines.flow.Flow
 
 @Composable
 fun ListImageLocalComposable(
     state: MainUIState,
     onEvent: (MainEvent) -> Unit,
-    onClick: () -> Unit
+    effect: Flow<MainEffect>,
+    onClickGoDetails: () -> Unit
 ) {
+    LaunchedEffect(effect){
+        effect.collect {
+            when (it) {
+                MainEffect.GoToLocalImageDetails -> onClickGoDetails()
+                else -> Unit
+            }
+        }
+    }
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
         contentPadding = PaddingValues(8.dp),
@@ -52,7 +64,7 @@ fun ListImageLocalComposable(
                             .fillMaxSize()
                             .clickable {
                                 onEvent(MainEvent.SetBitmapIndex(index))
-                                onClick()
+                                onEvent(MainEvent.GoToLocalImageDetail)
                             }
                     )
                 }

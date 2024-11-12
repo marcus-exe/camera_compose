@@ -37,8 +37,9 @@ fun NavGraph(
         }
         composable("Local Images") {
             ListImageLocalComposable(
-                state,
-                viewModel::onEvent
+                state = state,
+                onEvent = viewModel::onEvent,
+                effect = viewModel.effect
             ) { navController.navigate("Local Image Details") }
         }
 
@@ -50,11 +51,15 @@ fun NavGraph(
             ListImageCloudComposable(
                 state = state,
                 onEvent = viewModel::onEvent,
-                retryAction = { /*TODO*/ },
+                onClickDetails = {
+                    navController.navigate("Remote Image Details")
+                },
+                effect = viewModel.effect,
+                retryAction = {
+                    viewModel::getInfo
+                },
                 modifier = Modifier
-            ) {
-                navController.navigate("Remote Image Details")
-            }
+            )
         }
         composable("Remote Image Details") {
             CloudImageDetailComposable(state = state, retryAction = { /*TODO*/ })

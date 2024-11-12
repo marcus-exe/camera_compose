@@ -8,6 +8,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.dp
 import br.com.graest.camera.R
 import br.com.graest.camera.network.ApiStatus
+import br.com.graest.camera.ui.MainEffect
 import br.com.graest.camera.ui.MainUIState
 import br.com.graest.camera.ui.screens.components.AsyncImageComposable
 import br.com.graest.camera.ui.screens.components.ErrorScreen
