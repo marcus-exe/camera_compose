@@ -10,5 +10,6 @@ data class MainUIState(
     val bitmapIndex: Int? = null,
     val amphibianList : List<Amphibian> = mutableListOf(),
     val amphibian: Amphibian? = null,
-    val apiStatus: ApiStatus = ApiStatus.Loading
+    val apiStatus: ApiStatus = ApiStatus.Loading,
+    val imagePathList: List<String>
 ) : UIState

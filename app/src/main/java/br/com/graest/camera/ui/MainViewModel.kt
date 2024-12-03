@@ -11,6 +11,7 @@ import br.com.graest.camera.network.ApiStatus
 import br.com.graest.retinografo.base.arch.CoreViewModel
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import java.io.File
 import java.io.IOException
 
 class MainViewModel(
@@ -27,6 +28,7 @@ class MainViewModel(
             is MainEvent.GoToLocalImageDetail -> sendEffect(MainEffect.GoToLocalImageDetails)
             is MainEvent.SetAmphibian -> setState { it.copy(amphibian = event.amphibian) }
             is MainEvent.GoToCloudImageDetail -> sendEffect(MainEffect.GoToCloudImageDetails)
+            is MainEvent.SendImageCloud -> sendEffect(MainEffect.SendImageCloud)
         }
     }
 
@@ -36,12 +38,36 @@ class MainViewModel(
         ) }
     }
 
+    fun sendImageToCloud(bitmap: Bitmap) {
+        viewModelScope.launch {
+            try {
+                val imageFile = File(imagePath)
+                val receivedFile = appRepository.postPhoto(imageFile)
+                val filePath = getFilePath(receivedFile)
+                setState {
+                    it.copy(
+                        apiStatus = ApiStatus.Success,
+                        imagePathList = it.imagePathList + filePath
+                    )
+                }
+            } catch (e: IOException) {
+                setState {
+                    it.copy(apiStatus = ApiStatus.Error)
+                }
+            } catch (e: HttpException) {
+                setState {
+                    it.copy(apiStatus = ApiStatus.Error)
+                }
+            }
+        }
+    }
+
     fun getInfo() {
         viewModelScope.launch {
             try {
                 val amphibians = appRepository.getAmphibians()
                 setState {
-                    it.copy(apiStatus = ApiStatus.Success(amphibians))
+                    it.copy(apiStatus = ApiStatus.Success)
                 }
             } catch (e: IOException) {
                 setState {
@@ -64,5 +90,9 @@ class MainViewModel(
                 MainViewModel(appRepository = appRepository)
             }
         }
+    }
+
+    fun getFilePath(file: File): String {
+        return file.absolutePath
     }
 }

@@ -44,7 +44,12 @@ fun NavGraph(
         }
 
         composable("Local Image Details") {
-            LocalImageDetailComposable(state)
+            LocalImageDetailComposable(
+                state,
+                onEvent = viewModel::onEvent,
+                effect = viewModel.effect,
+                viewModel = viewModel
+            )
         }
 
         composable("Remote Images") {

@@ -54,17 +54,17 @@ fun ListImageCloudComposable(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                items(state.apiStatus.amphibians) { amphibian ->
-                    AsyncImageComposable(
-                        amphibian = amphibian,
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .clickable {
-                                onEvent(MainEvent.SetAmphibian(amphibian))
-                                onEvent(MainEvent.GoToCloudImageDetail)
-                            }
-                    )
-                }
+//                items(state.apiStatus.amphibians) { amphibian ->
+//                    AsyncImageComposable(
+//                        amphibian = amphibian,
+//                        modifier = Modifier
+//                            .fillMaxSize()
+//                            .clickable {
+//                                onEvent(MainEvent.SetAmphibian(amphibian))
+//                                onEvent(MainEvent.GoToCloudImageDetail)
+//                            }
+//                    )
+//                }
             }
         else -> ErrorScreen(retryAction, modifier)
     }

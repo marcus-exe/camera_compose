@@ -9,17 +9,41 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import br.com.graest.camera.ui.MainEffect
+import br.com.graest.camera.ui.MainEvent
 import br.com.graest.camera.ui.MainUIState
+import br.com.graest.camera.ui.MainViewModel
+import kotlinx.coroutines.flow.Flow
 
 @Composable
-fun LocalImageDetailComposable(state: MainUIState) {
+fun LocalImageDetailComposable(
+    state: MainUIState,
+    onEvent: (MainEvent) -> Unit,
+    effect: Flow<MainEffect>,
+    viewModel: MainViewModel,
+) {
+    LaunchedEffect(effect){
+        effect.collect {
+            when (it) {
+                // viewModel sent stuff
+                if (state.bitmaps != null && state.bitmapIndex != null)
+                val bitmap = state.bitmaps[state.bitmapIndex]
+                MainEffect.SendImageCloud -> viewModel.sendImageToCloud(bitmap)
+                else -> Unit
+            }
+        }
+    }
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -39,6 +63,8 @@ fun LocalImageDetailComposable(state: MainUIState) {
                 )
             }
         }
-
+        Button(onClick = { onEvent(MainEvent.SendImageCloud)}) {
+            Text(text = "Send to Cloud")
+        }
     }
 }

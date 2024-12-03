@@ -7,4 +7,5 @@ sealed interface MainEvent {
     data object GoToLocalImageDetail : MainEvent
     data class SetAmphibian(val amphibian: Amphibian) : MainEvent
     data object GoToCloudImageDetail : MainEvent
+    data object SendImageCloud: MainEvent
 }
