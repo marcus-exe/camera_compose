@@ -76,6 +76,7 @@ dependencies {
     implementation(libs.com.jakewharton.retrofit)
     implementation(libs.com.squareup.retrofit2)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.okhttp3.logging)
 
 
     testImplementation(libs.junit)

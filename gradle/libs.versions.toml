@@ -18,6 +18,7 @@ coilNetwork = "3.0.0-rc02"
 retrofitSerialization = "1.0.0"
 retrofit2_version = "2.9.0"
 kotlin_serialization = "1.5.1"
+okktp3_logging = "4.11.0"
 
 
 [libraries]
@@ -51,6 +52,7 @@ coil-network-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp"
 com-jakewharton-retrofit = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "retrofitSerialization"}
 com-squareup-retrofit2 = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit2_version" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlin_serialization"}
+okhttp3-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okktp3_logging" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
