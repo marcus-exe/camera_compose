@@ -11,5 +11,6 @@ data class MainUIState(
     val amphibianList : List<Amphibian> = mutableListOf(),
     val amphibian: Amphibian? = null,
     val apiStatus: ApiStatus = ApiStatus.Loading,
-    val imagePathList: List<String>
+    val imagePathList: List<String> = emptyList(),
+    val imagePathIndex: Int = -1
 ) : UIState

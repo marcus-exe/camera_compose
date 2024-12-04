@@ -44,30 +44,50 @@ fun ListImageCloudComposable(
         }
     }
 
-    when (state.apiStatus) {
-        is ApiStatus.Loading -> LoadingScreen(modifier = Modifier.size(200.dp))
-        is ApiStatus.Success ->
-
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(3),
-                contentPadding = PaddingValues(8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-//                items(state.apiStatus.amphibians) { amphibian ->
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(3),
+        contentPadding = PaddingValues(8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        items(state.imagePathList.size) { index  ->
+            val path = state.imagePathList[index]
+            AsyncImageComposable(
+                path = path,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .clickable {
+                        onEvent(MainEvent.SetPathIndex(index))
+                        onEvent(MainEvent.GoToCloudImageDetail)
+                    }
+            )
+        }
+    }
+//    when (state.apiStatus) {
+//        is ApiStatus.Loading -> LoadingScreen(modifier = Modifier.size(200.dp))
+//        is ApiStatus.Success ->
+//
+//            LazyVerticalGrid(
+//                columns = GridCells.Fixed(3),
+//                contentPadding = PaddingValues(8.dp),
+//                verticalArrangement = Arrangement.spacedBy(8.dp),
+//                horizontalArrangement = Arrangement.spacedBy(8.dp)
+//            ) {
+//                items(state.imagePathList.size) { index  ->
+//                    val path = state.imagePathList[index]
 //                    AsyncImageComposable(
-//                        amphibian = amphibian,
+//                        path = path,
 //                        modifier = Modifier
 //                            .fillMaxSize()
 //                            .clickable {
-//                                onEvent(MainEvent.SetAmphibian(amphibian))
+//                                onEvent(MainEvent.SetPathIndex(index))
 //                                onEvent(MainEvent.GoToCloudImageDetail)
 //                            }
 //                    )
 //                }
-            }
-        else -> ErrorScreen(retryAction, modifier)
-    }
+//            }
+//        else -> ErrorScreen(retryAction, modifier)
+//    }
 }
 
 

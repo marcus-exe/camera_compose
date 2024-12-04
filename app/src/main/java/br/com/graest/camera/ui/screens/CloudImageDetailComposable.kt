@@ -24,13 +24,11 @@ fun CloudImageDetailComposable(
     when (state.apiStatus) {
         is ApiStatus.Loading -> LoadingScreen(modifier.size(200.dp))
         is ApiStatus.Success ->
-            if (state.amphibian != null) {
-                AsyncImageComposable(
-                    amphibian = state.amphibian,
-                    modifier = modifier
-                        .fillMaxWidth()
-                )
-            }
+            AsyncImageComposable(
+                path = state.imagePathList[state.imagePathIndex],
+                modifier = modifier
+                    .fillMaxWidth()
+            )
         else -> ErrorScreen(retryAction, modifier)
     }
 }

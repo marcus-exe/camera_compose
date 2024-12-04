@@ -1,6 +1,9 @@
 package br.com.graest.camera.ui
 
+import android.content.Context
 import android.graphics.Bitmap
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
@@ -12,7 +15,9 @@ import br.com.graest.retinografo.base.arch.CoreViewModel
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.File
+import java.io.FileOutputStream
 import java.io.IOException
+import java.time.LocalDateTime
 
 class MainViewModel(
     private val appRepository: AppRepository
@@ -26,7 +31,7 @@ class MainViewModel(
         when (event) {
             is MainEvent.SetBitmapIndex -> setState { it.copy(bitmapIndex = event.index) }
             is MainEvent.GoToLocalImageDetail -> sendEffect(MainEffect.GoToLocalImageDetails)
-            is MainEvent.SetAmphibian -> setState { it.copy(amphibian = event.amphibian) }
+            is MainEvent.SetPathIndex -> setState { it.copy(imagePathIndex = event.index) }
             is MainEvent.GoToCloudImageDetail -> sendEffect(MainEffect.GoToCloudImageDetails)
             is MainEvent.SendImageCloud -> sendEffect(MainEffect.SendImageCloud)
         }
@@ -38,11 +43,17 @@ class MainViewModel(
         ) }
     }
 
-    fun sendImageToCloud(bitmap: Bitmap) {
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun sendImageToCloud(context: Context, bitmap: Bitmap) {
         viewModelScope.launch {
             try {
-                val imageFile = File(imagePath)
-                val receivedFile = appRepository.postPhoto(imageFile)
+                val tempFile = File.createTempFile(
+                    LocalDateTime.now().toString().replace(":", "-"),
+                    ".tmp",
+                    context.cacheDir
+                )
+                val imageFile = bitmapToFile(bitmap, tempFile)
+                val receivedFile = appRepository.postPhoto(context, imageFile)
                 val filePath = getFilePath(receivedFile)
                 setState {
                     it.copy(
@@ -94,5 +105,24 @@ class MainViewModel(
 
     fun getFilePath(file: File): String {
         return file.absolutePath
+    }
+
+    fun bitmapToFile(
+        bitmap: Bitmap,
+        file: File,
+        format: Bitmap.CompressFormat = Bitmap.CompressFormat.JPEG,
+        quality: Int = 100
+    ): File {
+        try {
+            FileOutputStream(file).use { outputStream ->
+                if (!bitmap.compress(format, quality, outputStream)) {
+                    throw IOException("Failed to compress the Bitmap.")
+                }
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+            throw e
+        }
+        return file
     }
 }

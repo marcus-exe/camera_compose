@@ -22,8 +22,8 @@ import coil3.request.crossfade
 
 @Composable
 fun AsyncImageComposable(
-    modifier: Modifier,
-    amphibian: Amphibian,
+    path: String,
+    modifier: Modifier
 ) {
     Box(
         modifier = modifier
@@ -33,7 +33,7 @@ fun AsyncImageComposable(
     ) {
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
-                .data(amphibian.imgSrc)
+                .data(path)
                 .crossfade(true)
                 .build(),
             contentDescription = null,
